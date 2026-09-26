@@ -1,0 +1,20 @@
+# Security headers for all responses (Cloudflare Pages reads this from the
+# build output root). Tuned to the site's actual third parties:
+#   - Plausible analytics  (script + inline init + event POST)
+#   - Google Fonts         (CSS on fonts.googleapis.com, files on fonts.gstatic.com)
+#   - Carto basemap tiles  (loaded as <img> by Leaflet)
+#   - Geolocation          (emergency map "find me") — kept ENABLED
+/*
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://plausible.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://plausible.io; frame-src 'self' https:; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Permissions-Policy: geolocation=(self), camera=(), microphone=(), payment=(), usb=(), magnetometer=(), accelerometer=(), gyroscope=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+  X-Permitted-Cross-Domain-Policies: none
+
+# API responses must never be cached by intermediaries.
+/api/*
+  Cache-Control: no-store
+  X-Robots-Tag: noindex

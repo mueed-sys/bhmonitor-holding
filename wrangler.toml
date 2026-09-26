@@ -1,0 +1,9 @@
+# Deployment is intentionally not performed by this repository.
+# Bind the existing production D1 database to DB only when deployment is approved.
+name = "bhmonitor-holding"
+compatibility_date = "2025-04-26"
+pages_build_output_dir = "dist/public"
+[[d1_databases]]
+binding = "DB"
+database_name = "bhmonitor"
+database_id = "27fd0c4b-c07c-4f17-955c-a75db5af9ba7"
